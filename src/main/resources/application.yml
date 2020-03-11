@@ -1,0 +1,18 @@
+
+server:
+  port: 8301
+
+
+spring:
+  application:
+    name: edu-school-provider
+spring.datasource:
+  name: edu-school-provider
+  url: jdbc:mysql://127.0.0.1:3306/timingtask?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+  username: root
+  password: root
+  driver-class-name: com.mysql.jdbc.Driver
+  tomcat:
+    max-active: 1200
+    max-wait: 1000
+    initial-wait : 500
