@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2020-03-11 17:17:46
+Date: 2020-03-16 17:04:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,13 +55,31 @@ CREATE TABLE `time_task` (
   `modifyTime` datetime DEFAULT NULL,
   `isdel` bit(1) DEFAULT b'0' COMMENT '是否删除0正常 1删除',
   `isAppoin` bit(1) DEFAULT NULL COMMENT '是否指定执行日期 0否 1是',
-  `frequency` float(11,0) DEFAULT '0' COMMENT '不指定执行日期的执行频度  单位分钟',
+  `frequency` int(11) DEFAULT '0' COMMENT '不指定执行日期的执行频度  单位分钟',
   `appoinDate` datetime DEFAULT NULL COMMENT '指定的日期，时分秒',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of time_task
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `time_task_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `time_task_log`;
+CREATE TABLE `time_task_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '定时任务日志表',
+  `taskId` int(11) DEFAULT NULL COMMENT '任务表主键',
+  `nextTime` datetime DEFAULT NULL,
+  `isExec` bit(1) DEFAULT b'0' COMMENT '是否已经执行',
+  `execTime` datetime DEFAULT NULL COMMENT '执行时间',
+  `isdel` bit(1) DEFAULT b'0' COMMENT '0正常1删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of time_task_log
 -- ----------------------------
 
 -- ----------------------------

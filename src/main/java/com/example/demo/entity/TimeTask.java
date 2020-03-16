@@ -36,7 +36,7 @@ public class TimeTask {
 //    是否指定执行日期 0否 1是
     private boolean isAppoin;
 //    不指定执行日期的执行频度  单位分钟
-    private float frequency;
+    private int frequency;
 //    指定的日期，时分秒
     private Date appoinDate;
 
@@ -169,7 +169,7 @@ public class TimeTask {
                 '}';
     }
 
-    public TimeTask(Integer id, String taskName, String taskCategory, String emailAddress, String requestAddress, String taskParam, String personInCharge, String emailContent, int createAdminId, Date createTime, int modifyAdminId, Date modifyTime, boolean isdel, boolean isAppoin, float frequency, Date appoinDate) {
+    public TimeTask(Integer id, String taskName, String taskCategory, String emailAddress, String requestAddress, String taskParam, String personInCharge, String emailContent, int createAdminId, Date createTime, int modifyAdminId, Date modifyTime, boolean isdel, boolean isAppoin, int frequency, Date appoinDate) {
         this.id = id;
         this.taskName = taskName;
         this.taskCategory = taskCategory;
@@ -185,6 +185,30 @@ public class TimeTask {
         this.isdel = isdel;
         this.isAppoin = isAppoin;
         this.frequency = frequency;
+        this.appoinDate = appoinDate;
+    }
+
+    public boolean isAppoin() {
+        return isAppoin;
+    }
+
+    public void setAppoin(boolean appoin) {
+        isAppoin = appoin;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+    public Date getAppoinDate() {
+        return appoinDate;
+    }
+
+    public void setAppoinDate(Date appoinDate) {
         this.appoinDate = appoinDate;
     }
 }
