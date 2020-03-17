@@ -126,7 +126,14 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public boolean deleteTimeTask(TimeTask timeTask) {
-        return false;
+        timeTask.setModifyTime(new Date());
+        if(taskMapper.deleteTimeTask(timeTask)>0){
+            if(taskMapper.deleteTimeTaskLog(timeTask.getId())>0)
+                return true;
+            return false;
+        }else{
+            return false;
+        }
     }
 
     @Override

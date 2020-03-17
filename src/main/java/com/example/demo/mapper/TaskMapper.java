@@ -37,7 +37,7 @@ public interface TaskMapper {
 //    根据创建人id获取任务列表
     @Select("select count(*) from time_task where createAdminId = #{createAdminId} and isdel = 0")
     int getTimeTaskCount(@Param("createAdminId")int createAdminId);
-    @Select("select * from time_task where createAdminId = #{createAdminId} and isdel = 0 order by id desc limit #{start},#{page}")
+    @Select("select * from time_task where createAdminId = #{createAdminId} and isdel = 0 order by modifyTime desc limit #{start},#{page}")
     List<TimeTask> getTimeTaskPage(@Param("createAdminId")int createAdminId,@Param("start")int start,@Param("page")int page);
 //    检查同一个用户新增定时任务时有没有重名任务
     @Select("select count(*) from time_task where taskName = #{taskName} and createAdminId = #{createAdminId} and isdel = 0")
