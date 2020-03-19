@@ -3,6 +3,9 @@ package com.example.demo.entity;/*
  * @date 2020/3/11
  */
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 //任务表
@@ -12,7 +15,7 @@ public class TimeTask {
 //    任务名称
     private String taskName;
 //    任务类别 1、邮件发送 2 接口访问
-    private String taskCategory;
+    private int taskCategory;
 //    邮箱地址
     private String emailAddress;
 //    访问地址
@@ -39,6 +42,10 @@ public class TimeTask {
     private int frequency;
 //    指定的日期，时分秒
     private Date appoinDate;
+//    邮件主题
+    private String emailSubject;
+//    请求方式  1 get  2、post application/json 3、post from
+    private Integer requestMode;
 
     public TimeTask() {
     }
@@ -59,13 +66,7 @@ public class TimeTask {
         this.taskName = taskName;
     }
 
-    public String getTaskCategory() {
-        return taskCategory;
-    }
 
-    public void setTaskCategory(String taskCategory) {
-        this.taskCategory = taskCategory;
-    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -152,7 +153,7 @@ public class TimeTask {
         return "TimeTask{" +
                 "id=" + id +
                 ", taskName='" + taskName + '\'' +
-                ", taskCategory='" + taskCategory + '\'' +
+                ", taskCategory=" + taskCategory +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", requestAddress='" + requestAddress + '\'' +
                 ", taskParam='" + taskParam + '\'' +
@@ -166,10 +167,36 @@ public class TimeTask {
                 ", isAppoin=" + isAppoin +
                 ", frequency=" + frequency +
                 ", appoinDate=" + appoinDate +
+                ", emailSubject='" + emailSubject + '\'' +
+                ", requestMode=" + requestMode +
                 '}';
     }
 
-    public TimeTask(Integer id, String taskName, String taskCategory, String emailAddress, String requestAddress, String taskParam, String personInCharge, String emailContent, int createAdminId, Date createTime, int modifyAdminId, Date modifyTime, boolean isdel, boolean isAppoin, int frequency, Date appoinDate) {
+    public int getTaskCategory() {
+        return taskCategory;
+    }
+
+    public void setTaskCategory(int taskCategory) {
+        this.taskCategory = taskCategory;
+    }
+
+    public String getEmailSubject() {
+        return emailSubject;
+    }
+
+    public void setEmailSubject(String emailSubject) {
+        this.emailSubject = emailSubject;
+    }
+
+    public Integer getRequestMode() {
+        return requestMode;
+    }
+
+    public void setRequestMode(Integer requestMode) {
+        this.requestMode = requestMode;
+    }
+
+    public TimeTask(Integer id, String taskName, int taskCategory, String emailAddress, String requestAddress, String taskParam, String personInCharge, String emailContent, int createAdminId, Date createTime, int modifyAdminId, Date modifyTime, boolean isdel, boolean isAppoin, int frequency, Date appoinDate, String emailSubject, Integer requestMode) {
         this.id = id;
         this.taskName = taskName;
         this.taskCategory = taskCategory;
@@ -186,6 +213,8 @@ public class TimeTask {
         this.isAppoin = isAppoin;
         this.frequency = frequency;
         this.appoinDate = appoinDate;
+        this.emailSubject = emailSubject;
+        this.requestMode = requestMode;
     }
 
     public boolean isAppoin() {

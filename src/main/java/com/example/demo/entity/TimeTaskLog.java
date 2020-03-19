@@ -13,11 +13,11 @@ public class TimeTaskLog {
 //    下次执行时间
     private Date nextTime;
 //    是否执行
-    private boolean isExec;
+    private int isExec;
 //    执行时间
     private Date execTime;
 //    是否删除
-    private boolean isdel;
+    private int isdel;
 
     @Override
     public String toString() {
@@ -58,13 +58,7 @@ public class TimeTaskLog {
         this.nextTime = nextTime;
     }
 
-    public boolean isExec() {
-        return isExec;
-    }
 
-    public void setExec(boolean exec) {
-        isExec = exec;
-    }
 
     public Date getExecTime() {
         return execTime;
@@ -74,20 +68,28 @@ public class TimeTaskLog {
         this.execTime = execTime;
     }
 
-    public boolean isIsdel() {
-        return isdel;
-    }
-
-    public void setIsdel(boolean isdel) {
-        this.isdel = isdel;
-    }
-
-    public TimeTaskLog(Integer id, int taskId, Date nextTime, boolean isExec, Date execTime, boolean isdel) {
+    public TimeTaskLog(Integer id, int taskId, Date nextTime, int isExec, Date execTime, int isdel) {
         this.id = id;
         this.taskId = taskId;
         this.nextTime = nextTime;
         this.isExec = isExec;
         this.execTime = execTime;
+        this.isdel = isdel;
+    }
+
+    public int getIsExec() {
+        return isExec;
+    }
+
+    public void setIsExec(int isExec) {
+        this.isExec = isExec;
+    }
+
+    public int getIsdel() {
+        return isdel;
+    }
+
+    public void setIsdel(int isdel) {
         this.isdel = isdel;
     }
 }
