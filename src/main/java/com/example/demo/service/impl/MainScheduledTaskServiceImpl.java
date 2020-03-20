@@ -53,6 +53,14 @@ public class MainScheduledTaskServiceImpl implements MainScheduledTaskService {
                         System.out.println("任务id："+timeTask.getId()+"::::::"+result);
                         break;
                     }
+                    case 3:{
+//                        formData
+                        JSONObject taskParamJson = JSONObject.parseObject(timeTask.getTaskParam());
+                        Map<String,Object> map = (Map<String,Object>)taskParamJson;
+                        String result = HttpUtils.formPost(timeTask.getRequestAddress(),map);
+                        System.out.println("任务id："+timeTask.getId()+"::::::"+result);
+                        break;
+                    }
                 }
             }
 //                更改日志表里面的发送状态

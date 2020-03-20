@@ -88,4 +88,11 @@ public class TaskController {
             return new R(false,300,result,"操作失败");
         }
     }
+
+//    接收表单
+    @PostMapping(value = "/postFrom")
+    @ResponseBody
+    public void getForm(TimeTask timeTask){
+        System.out.println(timeTask.toString());
+    }
 }
