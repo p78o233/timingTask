@@ -58,7 +58,7 @@ public class MainScheduledTaskServiceImpl implements MainScheduledTaskService {
 //                更改日志表里面的发送状态
             taskMapper.updateExecStatus(new Date(),log.getId());
 //            判断是否指定日期
-            if (timeTask.isAppoin()==true){
+            if (timeTask.getIsAppoin()==1){
 //                    指定日期，不进行任何操作
 
             }else{

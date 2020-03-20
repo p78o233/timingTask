@@ -4,6 +4,7 @@ package com.example.demo.service.impl;/*
  */
 
 import com.example.demo.entity.*;
+import com.example.demo.entity.dto.TimeTaskDto;
 import com.example.demo.mapper.TaskMapper;
 import com.example.demo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,23 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public int ioeTimeTask(TimeTask timeTask) {
+    public int ioeTimeTask(TimeTaskDto dto) {
+        TimeTask timeTask = new TimeTask();
+        timeTask.setId(dto.getId());
+        timeTask.setTaskName(dto.getTaskName());
+        timeTask.setTaskCategory(dto.getTaskCategory());
+        timeTask.setEmailAddress(dto.getEmailAddress());
+        timeTask.setRequestAddress(dto.getRequestAddress());
+        timeTask.setTaskParam(dto.getTaskParam().toJSONString());
+        timeTask.setPersonInCharge(dto.getPersonInCharge());
+        timeTask.setEmailContent(dto.getEmailContent());
+        timeTask.setCreateAdminId(dto.getCreateAdminId());
+        timeTask.setModifyAdminId(dto.getModifyAdminId());
+        timeTask.setIsAppoin(dto.getIsAppoin());
+        timeTask.setFrequency(dto.getFrequency());
+        timeTask.setAppoinDate(dto.getAppoinDate());
+        timeTask.setEmailSubject(dto.getEmailSubject());
+        timeTask.setRequestMode(dto.getRequestMode());
         //0 有重名  1新增成功  2新增失败
         if(timeTask.getId()==null){
 //            新增
@@ -81,7 +98,7 @@ public class TaskServiceImpl implements TaskService {
                 if(timeTask.getId()>0) {
                     TimeTaskLog ttl = new TimeTaskLog();
                     ttl.setTaskId(timeTask.getId());
-                    if(timeTask.isAppoin()==false){
+                    if(timeTask.getIsAppoin()==0){
 //                        不指定日期，即定时多少分钟执行一次
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         long longTimeStamp = new Date().getTime()+timeTask.getFrequency()*60*1000;
@@ -105,7 +122,7 @@ public class TaskServiceImpl implements TaskService {
                 timeTask.setModifyTime(new Date());
                 if(taskMapper.updateTimeTask(timeTask)>0){
                     TimeTaskLog ttl = new TimeTaskLog();
-                    if(timeTask.isAppoin()==false){
+                    if(timeTask.getIsAppoin()==0){
 //                        不指定日期，即定时多少分钟执行一次
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         long longTimeStamp = new Date().getTime()+timeTask.getFrequency()*60*1000;

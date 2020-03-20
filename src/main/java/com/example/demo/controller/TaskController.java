@@ -6,6 +6,7 @@ package com.example.demo.controller;/*
 import com.example.demo.entity.R;
 import com.example.demo.entity.TimeSetting;
 import com.example.demo.entity.TimeTask;
+import com.example.demo.entity.dto.TimeTaskDto;
 import com.example.demo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +61,7 @@ public class TaskController {
 //    添加或修改日志任务
     @PostMapping(value = "/ioeTimeTask")
     @ResponseBody
-    public R ioeTimeTask(@RequestBody TimeTask timeTask){
+    public R ioeTimeTask(@RequestBody TimeTaskDto timeTask){
         int result  = taskService.ioeTimeTask(timeTask);
         switch (result){
             case 0:{

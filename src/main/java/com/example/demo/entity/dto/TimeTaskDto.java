@@ -1,53 +1,75 @@
-package com.example.demo.entity;/*
+package com.example.demo.entity.dto;/*
  * @author p78o2
- * @date 2020/3/11
+ * @date 2020/3/20
  */
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.Date;
 
-//任务表
-public class TimeTask {
-//    主键
+public class TimeTaskDto {
+    //    主键
     private Integer id;
-//    任务名称
+    //    任务名称
     private String taskName;
-//    任务类别 1、邮件发送 2 接口访问
+    //    任务类别 1、邮件发送 2 接口访问
     private int taskCategory;
-//    邮箱地址
+    //    邮箱地址
     private String emailAddress;
-//    访问地址
+    //    访问地址
     private String requestAddress;
-//    请求参数 json格式
-    private String taskParam;
-//    负责人
+    //    请求参数 json格式
+    private JSONObject taskParam;
+    //    负责人
     private String personInCharge;
-//    邮件内容
+    //    邮件内容
     private String emailContent;
-//    创建人id
+    //    创建人id
     private int createAdminId;
-//    创建时间
+    //    创建时间
     private Date createTime;
-//    修改人
+    //    修改人
     private int modifyAdminId;
-//    修改时间
+    //    修改时间
     private Date modifyTime;
-//    是否删除
+    //    是否删除
     private boolean isdel;
-//    是否指定执行日期 0否 1是
+    //    是否指定执行日期 0否 1是
     private int isAppoin;
-//    不指定执行日期的执行频度  单位分钟
+    //    不指定执行日期的执行频度  单位分钟
     private int frequency;
-//    指定的日期，时分秒
+    //    指定的日期，时分秒
     private Date appoinDate;
-//    邮件主题
+    //    邮件主题
     private String emailSubject;
-//    请求方式  1 get  2、post application/json 3、post from
+    //    请求方式  1 get  2、post application/json 3、post from
     private Integer requestMode;
 
-    public TimeTask() {
+    @Override
+    public String toString() {
+        return "TimeTaskDto{" +
+                "id=" + id +
+                ", taskName='" + taskName + '\'' +
+                ", taskCategory=" + taskCategory +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", requestAddress='" + requestAddress + '\'' +
+                ", taskParam=" + taskParam +
+                ", personInCharge='" + personInCharge + '\'' +
+                ", emailContent='" + emailContent + '\'' +
+                ", createAdminId=" + createAdminId +
+                ", createTime=" + createTime +
+                ", modifyAdminId=" + modifyAdminId +
+                ", modifyTime=" + modifyTime +
+                ", isdel=" + isdel +
+                ", isAppoin=" + isAppoin +
+                ", frequency=" + frequency +
+                ", appoinDate=" + appoinDate +
+                ", emailSubject='" + emailSubject + '\'' +
+                ", requestMode=" + requestMode +
+                '}';
+    }
+
+    public TimeTaskDto() {
     }
 
     public Integer getId() {
@@ -66,7 +88,13 @@ public class TimeTask {
         this.taskName = taskName;
     }
 
+    public int getTaskCategory() {
+        return taskCategory;
+    }
 
+    public void setTaskCategory(int taskCategory) {
+        this.taskCategory = taskCategory;
+    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -84,11 +112,11 @@ public class TimeTask {
         this.requestAddress = requestAddress;
     }
 
-    public String getTaskParam() {
+    public JSONObject getTaskParam() {
         return taskParam;
     }
 
-    public void setTaskParam(String taskParam) {
+    public void setTaskParam(JSONObject taskParam) {
         this.taskParam = taskParam;
     }
 
@@ -148,36 +176,28 @@ public class TimeTask {
         this.isdel = isdel;
     }
 
-    @Override
-    public String toString() {
-        return "TimeTask{" +
-                "id=" + id +
-                ", taskName='" + taskName + '\'' +
-                ", taskCategory=" + taskCategory +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", requestAddress='" + requestAddress + '\'' +
-                ", taskParam='" + taskParam + '\'' +
-                ", personInCharge='" + personInCharge + '\'' +
-                ", emailContent='" + emailContent + '\'' +
-                ", createAdminId=" + createAdminId +
-                ", createTime=" + createTime +
-                ", modifyAdminId=" + modifyAdminId +
-                ", modifyTime=" + modifyTime +
-                ", isdel=" + isdel +
-                ", isAppoin=" + isAppoin +
-                ", frequency=" + frequency +
-                ", appoinDate=" + appoinDate +
-                ", emailSubject='" + emailSubject + '\'' +
-                ", requestMode=" + requestMode +
-                '}';
+    public int getIsAppoin() {
+        return isAppoin;
     }
 
-    public int getTaskCategory() {
-        return taskCategory;
+    public void setIsAppoin(int isAppoin) {
+        this.isAppoin = isAppoin;
     }
 
-    public void setTaskCategory(int taskCategory) {
-        this.taskCategory = taskCategory;
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+
+    public Date getAppoinDate() {
+        return appoinDate;
+    }
+
+    public void setAppoinDate(Date appoinDate) {
+        this.appoinDate = appoinDate;
     }
 
     public String getEmailSubject() {
@@ -196,15 +216,7 @@ public class TimeTask {
         this.requestMode = requestMode;
     }
 
-    public int getIsAppoin() {
-        return isAppoin;
-    }
-
-    public void setIsAppoin(int isAppoin) {
-        this.isAppoin = isAppoin;
-    }
-
-    public TimeTask(Integer id, String taskName, int taskCategory, String emailAddress, String requestAddress, String taskParam, String personInCharge, String emailContent, int createAdminId, Date createTime, int modifyAdminId, Date modifyTime, boolean isdel, int isAppoin, int frequency, Date appoinDate, String emailSubject, Integer requestMode) {
+    public TimeTaskDto(Integer id, String taskName, int taskCategory, String emailAddress, String requestAddress, JSONObject taskParam, String personInCharge, String emailContent, int createAdminId, Date createTime, int modifyAdminId, Date modifyTime, boolean isdel, int isAppoin, int frequency, Date appoinDate, String emailSubject, Integer requestMode) {
         this.id = id;
         this.taskName = taskName;
         this.taskCategory = taskCategory;
@@ -223,21 +235,5 @@ public class TimeTask {
         this.appoinDate = appoinDate;
         this.emailSubject = emailSubject;
         this.requestMode = requestMode;
-    }
-
-    public int getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
-    }
-
-    public Date getAppoinDate() {
-        return appoinDate;
-    }
-
-    public void setAppoinDate(Date appoinDate) {
-        this.appoinDate = appoinDate;
     }
 }

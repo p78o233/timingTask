@@ -7,6 +7,7 @@ import com.example.demo.entity.PageInfo;
 import com.example.demo.entity.R;
 import com.example.demo.entity.TimeSetting;
 import com.example.demo.entity.TimeTask;
+import com.example.demo.entity.dto.TimeTaskDto;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface TaskService {
 //    根据创建人id获取自己创建的任务列表
     public PageInfo getAllTaskByUserId(int userId,int page,int pageSize);
 //    添加或修改任务配置
-    public int ioeTimeTask(TimeTask timeTask);
+    public int ioeTimeTask(TimeTaskDto timeTask);
 //    删除任务
     public boolean deleteTimeTask(TimeTask timeTask);
 
