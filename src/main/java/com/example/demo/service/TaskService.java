@@ -20,7 +20,7 @@ public interface TaskService {
     public boolean deleteTimeSetting(TimeSetting timeSetting);
 
 //    根据创建人id获取自己创建的任务列表
-    public PageInfo getAllTaskByUserId(int userId,int page,int pageSize);
+    public PageInfo getAllTaskByUserId(int userId,int taskCategory,int page,int pageSize);
 //    添加或修改任务配置
     public int ioeTimeTask(TimeTaskDto timeTask);
 //    删除任务

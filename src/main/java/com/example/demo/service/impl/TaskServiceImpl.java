@@ -7,6 +7,7 @@ import com.example.demo.entity.*;
 import com.example.demo.entity.dto.TimeTaskDto;
 import com.example.demo.mapper.TaskMapper;
 import com.example.demo.service.TaskService;
+import com.example.demo.utils.ToolsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,11 +58,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public PageInfo getAllTaskByUserId(int userId, int page, int pageSize) {
+    public PageInfo getAllTaskByUserId(int userId,int taskCategory, int page, int pageSize) {
         int start = (page-1)*pageSize;
-        int count = taskMapper.getTimeTaskCount(userId);
+        int count = taskMapper.getTimeTaskCount(userId,taskCategory);
         List<TimeTask> list = new ArrayList<>();
-        list = taskMapper.getTimeTaskPage(userId,start,pageSize);
+        list = taskMapper.getTimeTaskPage(userId,taskCategory,start,pageSize);
         PageInfo<TimeTask> pageInfo = new PageInfo<>();
         pageInfo.setCount(count);
         pageInfo.setList(list);
@@ -155,7 +156,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public R login(String account, String pwd) {
-        return null;
+//        检查账号是否存在
+        if(taskMapper.isExist(account)>0){
+            TimeUser tu = new TimeUser();
+            tu = taskMapper.login(account, ToolsUtils.stringToMD5(pwd));
+            if(tu == null){
+                return new R (false,301,"","密码错误");
+            }else{
+                return new R (true,200,tu,"登陆成功");
+            }
+        }else{
+            return new R (false,302,"","账号不存在");
+        }
     }
 
     @Override

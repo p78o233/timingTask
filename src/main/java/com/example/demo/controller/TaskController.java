@@ -6,11 +6,12 @@ package com.example.demo.controller;/*
 import com.example.demo.entity.R;
 import com.example.demo.entity.TimeSetting;
 import com.example.demo.entity.TimeTask;
+import com.example.demo.entity.TimeUser;
 import com.example.demo.entity.dto.TimeTaskDto;
 import com.example.demo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/task")
 public class TaskController {
@@ -55,8 +56,8 @@ public class TaskController {
 //    根据创建人id分页获取任务列表
     @GetMapping(value = "/getAllTaskByUserId")
     @ResponseBody
-    public R getAllTaskByUserId(@RequestParam int userId,@RequestParam int page,@RequestParam int pageSize){
-        return new R(true,200,taskService.getAllTaskByUserId(userId,page,pageSize),"查询成功");
+    public R getAllTaskByUserId(@RequestParam int userId,@RequestParam int taskCategory,@RequestParam int page,@RequestParam int pageSize){
+        return new R(true,200,taskService.getAllTaskByUserId(userId,taskCategory,page,pageSize),"查询成功");
     }
 //    添加或修改日志任务
     @PostMapping(value = "/ioeTimeTask")
@@ -94,5 +95,11 @@ public class TaskController {
     @ResponseBody
     public void getForm(TimeTask timeTask){
         System.out.println(timeTask.toString());
+    }
+
+    @PostMapping(value = "/login")
+    @ResponseBody
+    public R login(@RequestBody TimeUser timeUser){
+        return taskService.login(timeUser.getAccount(),timeUser.getPwd());
     }
 }

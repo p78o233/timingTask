@@ -7,7 +7,7 @@ public class R {
 
     private boolean ret;
 
-    private int status;  //200 正常  201 重名  300操作失败
+    private int status;  //200 正常  201 重名  300操作失败  301密码错误  302 账号错误
 
     private Object data;
     private String msg;

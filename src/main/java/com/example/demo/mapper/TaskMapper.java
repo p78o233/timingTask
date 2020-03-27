@@ -3,10 +3,7 @@ package com.example.demo.mapper;/*
  * @date 2020/3/11
  */
 
-import com.example.demo.entity.PageInfo;
-import com.example.demo.entity.TimeSetting;
-import com.example.demo.entity.TimeTask;
-import com.example.demo.entity.TimeTaskLog;
+import com.example.demo.entity.*;
 import org.apache.ibatis.annotations.*;
 
 import javax.annotation.security.PermitAll;
@@ -35,10 +32,10 @@ public interface TaskMapper {
     int deleteTimeSetting(@Param("t")TimeSetting timeSetting);
 
 //    根据创建人id获取任务列表
-    @Select("select count(*) from time_task where createAdminId = #{createAdminId} and isdel = 0")
-    int getTimeTaskCount(@Param("createAdminId")int createAdminId);
-    @Select("select * from time_task where createAdminId = #{createAdminId} and isdel = 0 order by modifyTime desc limit #{start},#{page}")
-    List<TimeTask> getTimeTaskPage(@Param("createAdminId")int createAdminId,@Param("start")int start,@Param("page")int page);
+    @Select("select count(*) from time_task where createAdminId = #{createAdminId} and isdel = 0 and taskCategory = #{taskCategory}")
+    int getTimeTaskCount(@Param("createAdminId")int createAdminId,@Param("taskCategory") int taskCategory);
+    @Select("select * from time_task where createAdminId = #{createAdminId} and isdel = 0 and taskCategory = #{taskCategory} order by modifyTime desc limit #{start},#{page}")
+    List<TimeTask> getTimeTaskPage(@Param("createAdminId")int createAdminId,@Param("taskCategory") int taskCategory,@Param("start")int start,@Param("page")int page);
 //    检查同一个用户新增定时任务时有没有重名任务
     @Select("select count(*) from time_task where taskName = #{taskName} and createAdminId = #{createAdminId} and isdel = 0")
     int getInsertTimeTast(@Param("taskName")String taskName,@Param("createAdminId")int createAdminId);
@@ -69,4 +66,11 @@ public interface TaskMapper {
 //    获取最近一条任务日志表数据
     @Select("select * from time_task_log where taskId = #{taskId} and isExec = 0 and isdel = 0")
     TimeTaskLog getLastestTimeTaskLog(@Param("taskId")int taskId);
+
+//    登陆检查账号是否存在
+    @Select("select count(*) from time_user where account = #{account} and isdel = 0")
+    int isExist(@Param("account")String account);
+//    检查密码是否正确
+    @Select("select * from time_user where account = #{account} and isdel = 0 and pwd = #{pwd}")
+    TimeUser login(@Param("account")String account, @Param("pwd")String pwd);
 }
