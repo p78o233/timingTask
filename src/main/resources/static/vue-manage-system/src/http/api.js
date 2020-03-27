@@ -204,4 +204,8 @@ export const getAllTaskByUserId = params => {
 export const ioeTimeTask = params =>{
     return myPost("/task/ioeTimeTask",params)
 }
+// 删除定时任务
+export const deleteTimeTask = params =>{
+    return myPost("/task/deleteTimeTask",params)
+}
 //ee3f38cf88acecc5021c8eeab703caa5

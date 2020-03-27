@@ -201,44 +201,44 @@
                 :before-close="handleClose">
             <el-form ref="form" :model="timeTask">
                 <el-form-item label="任务名称">
-                    <el-input v-model="timeTask.taskName"></el-input>
+                    <el-input v-model="timeTask.taskName" :disabled="status=='look'"></el-input>
                 </el-form-item>
                 <el-form-item label="任务类别">
-                    <el-radio-group v-model="timeTask.taskCategory">
+                    <el-radio-group v-model="timeTask.taskCategory" :disabled="status=='look'">
                         <el-radio :label="1" value="1">发送邮件</el-radio>
                         <el-radio :label="2" value="2">请求接口</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="邮箱地址" v-if="timeTask.taskCategory==1">
-                    <el-input v-model="timeTask.emailAddress"></el-input>
+                    <el-input v-model="timeTask.emailAddress" :disabled="status=='look'"></el-input>
                 </el-form-item>
                 <el-form-item label="邮件主题" v-if="timeTask.taskCategory==1">
-                    <el-input v-model="timeTask.emailSubject"></el-input>
+                    <el-input v-model="timeTask.emailSubject" :disabled="status=='look'"></el-input>
                 </el-form-item>
                 <el-form-item label="邮件内容" v-if="timeTask.taskCategory==1">
-                    <el-input v-model="timeTask.emailContent"></el-input>
+                    <el-input v-model="timeTask.emailContent" :disabled="status=='look'"></el-input>
                 </el-form-item>
                 <el-form-item label="任务类别" v-if="timeTask.taskCategory==2">
-                    <el-radio-group v-model="timeTask.requestMode">
+                    <el-radio-group v-model="timeTask.requestMode" :disabled="status=='look'">
                         <el-radio :label="1" value="1">get</el-radio>
                         <el-radio :label="2" value="2">post application/json</el-radio>
                         <el-radio :label="3" value="3">post from</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="请求地址" v-if="timeTask.taskCategory==2">
-                    <el-input v-model="timeTask.requestAddress"></el-input>
+                    <el-input v-model="timeTask.requestAddress" :disabled="status=='look'"></el-input>
                 </el-form-item>
                 <el-form-item label="请求参数" v-if="timeTask.taskCategory==2">
-                    <vueJsonEditor v-model="timeTask.taskParam"></vueJsonEditor>
+                    <vueJsonEditor v-model="timeTask.taskParam" :disabled="status=='look'"></vueJsonEditor>
                 </el-form-item>
                 <el-form-item label="是否指定执行日期">
-                    <el-radio-group v-model="timeTask.isAppoin">
+                    <el-radio-group v-model="timeTask.isAppoin" :disabled="status=='look'">
                         <el-radio :label="0" value="0">否</el-radio>
                         <el-radio :label="1" value="1">是</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="执行频度  单位分钟" v-if="timeTask.isAppoin==0">
-                    <el-input-number v-model="timeTask.frequency"></el-input-number>
+                    <el-input-number v-model="timeTask.frequency" :disabled="status=='look'"></el-input-number>
                 </el-form-item>
                 <el-form-item label="日期时间" v-if="timeTask.isAppoin==1">
                     <el-col :span="11">
@@ -247,17 +247,17 @@
                                 placeholder="选择日期"
                                 v-model="timeTask.appoinDate"
                                 value-format="yyyy-MM-dd"
-                                style="width: 100%;"
+                                style="width: 100%;" :disabled="status=='look'"
                         ></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="负责人">
-                    <el-input v-model="timeTask.personInCharge"></el-input>
+                    <el-input v-model="timeTask.personInCharge" :disabled="status=='look'"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="saveTimeTask()">确 定</el-button>
+                <el-button type="primary" @click="saveTimeTask()" v-if="status!='look'">确 定</el-button>
             </span>
         </el-dialog>
         <!--创建修改查看弹窗结束-->
@@ -303,8 +303,56 @@
             };
         },
         methods: {
+            deleteTimeTask(row){
+                // 删除定时任务
+                debugger
+                this.assignmentFunc(row);
+                debugger
+                this.api.deleteTimeTask(this.timeTask).then(res => {
+                    if (res.ret == true) {
+                        this.$message({
+                            message: res.msg,
+                            type: 'success'
+                        });
+                        this.handleClose();
+                        this.getTimeTaskList();
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: 'warning'
+                        });
+                    }
+                });
+            },
+            assignmentFunc(row){
+                // 修改和查看赋值函数
+                this.timeTask.id == row.id;
+                this.timeTask.taskName = row.taskName;
+                this.timeTask.taskCategory = row.taskCategory
+                this.timeTask.emailAddress = row.emailAddress;
+                this.timeTask.requestAddress = row.requestAddress;
+                this.timeTask.taskParam = row.taskParam
+                this.timeTask.personInCharge = row.personInCharge;
+                this.timeTask.emailContent = row.emailContent
+                this.timeTask.isAppoin = row.isAppoin
+                this.timeTask.frequency = row.frequency
+                this.timeTask.appoinDate = row.appoinDate
+                this.timeTask.emailSubject =row.emailSubject
+                this.timeTask.requestMode = row.requestMode
+            },
             lookTimeTask(row){
               // 查看任务
+                this.assignmentFunc(row);
+                this.dialogVisible = true
+                this.status = 'look'
+                this.timeTaskTitle =  '查看定时任务'
+            },
+            editTimeTask(row){
+              // 修改任务
+                this.assignmentFunc(row);
+                this.dialogVisible = true
+                this.status = 'edit'
+                this.timeTaskTitle =  '修改定时任务'
             },
             resetDialog(){
                 // 重置弹窗内容

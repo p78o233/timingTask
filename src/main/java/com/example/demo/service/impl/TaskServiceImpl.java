@@ -77,7 +77,11 @@ public class TaskServiceImpl implements TaskService {
         timeTask.setTaskCategory(dto.getTaskCategory());
         timeTask.setEmailAddress(dto.getEmailAddress());
         timeTask.setRequestAddress(dto.getRequestAddress());
-        timeTask.setTaskParam(dto.getTaskParam().toJSONString());
+        if(dto.getTaskParam()!=null) {
+            timeTask.setTaskParam(dto.getTaskParam().toJSONString());
+        }else{
+            timeTask.setTaskParam("{}");
+        }
         timeTask.setPersonInCharge(dto.getPersonInCharge());
         timeTask.setEmailContent(dto.getEmailContent());
         timeTask.setCreateAdminId(dto.getCreateAdminId());
