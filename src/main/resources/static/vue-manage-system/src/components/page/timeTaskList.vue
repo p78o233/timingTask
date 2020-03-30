@@ -305,16 +305,16 @@
         methods: {
             deleteTimeTask(row){
                 // 删除定时任务
-                debugger
-                this.assignmentFunc(row);
-                debugger
-                this.api.deleteTimeTask(this.timeTask).then(res => {
+                var sendData = {
+                    "id":row.id,
+                    modifyAdminId: localStorage.getItem('userId')
+                }
+                this.api.deleteTimeTask(sendData).then(res => {
                     if (res.ret == true) {
                         this.$message({
                             message: res.msg,
                             type: 'success'
                         });
-                        this.handleClose();
                         this.getTimeTaskList();
                     } else {
                         this.$message({
