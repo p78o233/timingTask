@@ -154,43 +154,6 @@ function myCommonPost(url, formdata) {
     })
 }
 
-//首页接口
-export const getRecentClick = params => {
-    return myGet('/op/getRecentClick', params)
-};
-// mgr监视器接口
-export const getAllMonitorIp = params => {
-    return myGet('/getIpList', params)
-};
-export const getResoureInfo = params => {
-    return myPost('/getResoureInfo', params)
-}
-export const setAndSendWarn = params => {
-    return myPost('/setAndSendWarn', params)
-}
-export const getAppStatus = params => {
-    return myPost('/getAppStatus', params)
-}
-// mgr登陆登出接口
-export const mgrLogin = params => {
-    return myPost('/login', params)
-}
-export const mgrLogout = params => {
-    return myGet('/logout', params)
-}
-// mgr通用功能
-export const getAllDubbo = params => {
-    return myGet('/op/allDubbo', params)
-};
-export const allAction = params => {
-    return myGet('/op/allAction', params)
-};
-export const actionCallback = params => {
-    return myPost('/op/actionCallback', params)
-}
-export const delApp = params => {
-    return myPost('/op/delApp', params)
-}
 // ===============================================================================================================
 // 登陆接口
 export const login = params =>{
