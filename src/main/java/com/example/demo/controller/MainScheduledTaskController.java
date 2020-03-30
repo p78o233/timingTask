@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainScheduledTaskController {
     @Autowired
     private MainScheduledTaskService service;
-//    间隔1秒执行一次定时任务
-//    @Scheduled(fixedRate=1000)
+//    间隔10分钟执行一次定时任务
+    @Scheduled(fixedRate=600000)
     @GetMapping(value = "/handMake")
     public void configureTasks() {
         service.getTask();
